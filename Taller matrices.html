@@ -1,0 +1,53 @@
+<html>
+<head>
+</head>
+<body>
+<table border="1" id="matrizTable">
+</table>
+
+<script>
+// Definir la matriz
+var m = [
+  [2, 4, 6],
+  [8, 10, 12],
+  [14, 16, 18]
+];
+
+// Función para imprimir la matriz
+function imprimirMatriz(matriz) {
+  var table = document.getElementById("matrizTable");
+  for (var i = 0; i < matriz.length; i++) {
+    var row = table.insertRow();
+    for (var j = 0; j < matriz[i].length; j++) {
+      var cell = row.insertCell();
+      cell.appendChild(document.createTextNode(matriz[i][j]));
+    }
+  }
+}
+
+// Función para buscar un valor en la matriz
+function buscarEnMatriz(valor) {
+  for (var i = 0; i < m.length; i++) {
+    for (var j = 0; j < m[i].length; j++) {
+      if (m[i][j] === valor) {
+        return {fila: i, columna: j}; // Retornar la posición del valor si se encuentra
+      }
+    }
+  }
+  return null; // Retornar null si el valor no se encuentra en la matriz
+}
+
+// Llamar a la función para imprimir la matriz
+imprimirMatriz(m);
+
+// Ejemplo de búsqueda de un valor en la matriz
+var valorABuscar = 14;
+var posicion = buscarEnMatriz(valorABuscar);
+if (posicion !== null) {
+  console.log("El valor", valorABuscar, "se encuentra en la fila", posicion.fila, "y columna", posicion.columna);
+} else {
+  console.log("El valor", valorABuscar, "no se encuentra en la matriz");
+}
+</script>
+</body>
+</html>

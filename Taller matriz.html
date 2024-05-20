@@ -1,0 +1,91 @@
+<html>
+<head>
+    <title>Busqueda</title>
+</head>
+<body>
+
+
+<h2>Buscar dentro de la matriz</h2>
+
+<div id="tablaContainer"></div>
+
+<script>
+    // Matriz
+    const matriz = [
+        [2, 4, 6],
+        [8, 10, 12],
+        [14, 16, 18]
+    ];
+
+    //imprimir matriz
+
+    function imprimir(){
+        const body = document.getElementsByTagName("body")[0];
+
+
+        const tabla = document.createElement("table");
+        const tblBody = document.createElement("tbody");
+
+
+    // Crear las filas y celdas
+        matriz.forEach(function (fila) {
+        const hilera = document.createElement("tr");
+        fila.forEach(function (valor) {
+        const celda = document.createElement("td");
+        const textoCelda = document.createTextNode(valor);
+        celda.appendChild(textoCelda);
+        hilera.appendChild(celda);
+    });
+    tblBody.appendChild(hilera);
+});
+
+// Agregar el <tbody> a la tabla
+    tabla.appendChild(tblBody);
+
+// Agregar la tabla al body
+    body.appendChild(tabla);
+
+// Modificar el atributo "border" de la tabla (opcional)
+    tabla.setAttribute("border", "1");
+}
+    
+        
+    imprimir();
+        
+
+
+
+
+    // Buscar número
+    function buscar() {
+        const numero = parseInt(prompt('Hola, digite un número:'));
+
+        for (i = 0; i < matriz.length; i++) {
+            if (matriz[i].includes(numero)) {
+                const fila = i;
+                const columna = matriz[i].indexOf(numero);
+                alert(`El número ${numero} se encuentra en la fila [${fila}] y columna [${columna}] de la matriz.`);
+             
+                break;
+            }
+        }
+
+        if (!encontrado) {
+            alert(`El número ${numero} no se encuentra en la matriz.`);
+        }
+
+        return numero;
+    }
+</script>
+
+
+
+<br>
+<button onclick="buscar()">Buscar dentro de la matriz</button>
+
+    
+
+</body>
+</html>
+</body>
+

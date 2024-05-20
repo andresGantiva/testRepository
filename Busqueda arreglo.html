@@ -1,0 +1,38 @@
+<html>
+<head>
+    <title>Busqueda</title>
+</head>
+<body>
+
+
+<h2>Buscar número par en el arreglo</h2>
+
+<script>
+    // Vector de números pares
+    const vectorPar = [2, 4, 6, 8, 10];
+    // Vector de números impares
+
+
+    
+        const numero = parseInt(prompt('Hola, digite un número:'));
+
+        if (isNaN(numero)) {
+            alert('Por favor, digite un número válido.');
+            
+        }
+
+        // Buscar número en vectorPar
+        if (vectorPar.includes(numero)) {
+            const posicion = vectorPar.indexOf(numero);
+            alert(`El número ${numero} se encuentra en la posición ${posicion} del vector par.`);
+            
+        }
+        else{
+       alert (`El número ${numero} no se encuentra en el arreglo.`);
+        }
+</script>
+
+</body>
+</html>
+</body>
+</html>

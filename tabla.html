@@ -1,0 +1,39 @@
+<html>
+
+    <title>Ejercicios</title>
+</head>
+<body>
+    
+
+    <h3>Ejercicio 1</h3>
+    
+<script>
+    var numUsuario= parseInt(prompt("Ingrese el numero del que desea obtener la tabla"));
+    var tablaHTML= "<table border='1'><tr><th>Operacion</th><th>Resultado</th></tr>";
+    var tablaCreada= [];
+    
+        for ( numTabla = 1; numTabla <=10; numTabla++) {
+        
+            tablaCreada.push(numUsuario*numTabla);
+  
+            }
+            
+            for ( numTabla = 1; numTabla <=10; numTabla++) {
+                
+                tablaHTML += '<tr><td>'+numUsuario+"x"+numTabla+'</td><td>'+tablaCreada[numTabla-1]+'</td></tr>';
+            
+            
+            }
+    tablaHTML += '</table>';
+
+        
+       document.write(tablaHTML);
+        
+
+</script>
+
+   
+
+
+</body>
+</html>

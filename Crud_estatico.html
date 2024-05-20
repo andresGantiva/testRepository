@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <title>CRUD estatico</title>
+</head>
+<body>
+    <br>
+    <form action="get">
+        <label for="codigo">Codigo: </label>   
+        <input type="text" id="codigo" name="codigo"> <br> <br>
+        <label for="codigo">Nombre: </label>  
+        <input type="text" id="nombre" name="nombre"> <br><br>
+        <label for="apellido">Apellido: </label>   
+        <input type="text" id="apellido" name="apellido"> <br><br>
+
+        <input type="button" value="Guardar" onclick="guardar()">
+        <input type="button" value="Mostar" onclick="mostrar()">
+        <input type="button" value="Limpiar" onclick="limpiar()">
+
+
+    </form>
+
+    <div id="tablaDatos">
+
+
+    </div>
+
+
+    <script>
+
+        let datos=[];
+
+        function guardar() {
+            const codigo=document.getElementById("codigo").value;
+            const nombre=document.getElementById("nombre").value;
+            const apellido=document.getElementById("apellido").value;
+
+            datos.push({Codigo:codigo, Nombre:nombre, Apellido:apellido});
+        }
+
+        function mostrar() {
+            const tabla=document.getElementById("tablaDatos");
+            tabla.innerHTML="";
+            if(datos.lenght>0){
+                const table=document.createElement(table);
+                const encabezado=table.insertRow(0);
+
+                for(const key in datos[0]){
+                    const th=document.createElement("th");
+                    th.innerHTML=key;
+                    encabezado.appendChild(th);
+                }
+
+                for(let c=0; c<datos.lenght; c++){
+
+                    const fila=table.insertRow(c+1);
+                    for(const key in datos[c]){
+                        const celda=row.insertCell
+                        celda.innerHTML=datos[c][key];
+                    }
+                }
+                tabla.appendChild(table);
+                document.getElementById("exportButton").style.display="block";
+            }
+            else{
+                document.getElementById("exportButton").style.display="none";
+            }
+        }
+
+        function limpiar() {
+            document.getElementById("codigo").value="";
+            document.getElementById("nombre").value="";
+            document.getElementById("apellido").value="";
+            const codigoInput=document.getElementById("codigo");
+            codigoInput.focus();
+        }
+    </script>
+</body>
+</html>
