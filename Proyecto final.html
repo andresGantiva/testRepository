@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html lang= "es">
+<head>
+   
+    <title>Proyecto Final</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.16.8/xlsx.full.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/FileSaver.js/2.0.5/FileSaver.min.js"></script>
+    <link rel="stylesheet" href="style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Poetsen+One&family=Roboto:wght@100&display=swap" rel="stylesheet">
+</head>
+
+<header>
+  <h2>Proyecto final</h2>
+</header>
+
+<nav>
+  <a href="#">Inicio</a>
+  <a href="#">Ejemplo 1</a>
+  <a href="#">Ejemplo 2</a>
+  <a href="#">Ejemplo 3</a>
+  <a href="#">Ver más</a>
+  
+</nav>
+<body id="contenedor_principal">
+
+
+<form id="formulario">
+  <label for="codigo" >Código:</label>
+  <input type="text" id="codigo" name="codigo" required="true"><br><br>
+  <label for="nombre">Nombre:</label>
+  <input type="text" id="nombre" name="nombre" required="true"><br><br>
+  <label for="apellido">Apellido:</label>
+  <input type="text" id="apellido" name="apellido" required="true"><br><br>
+  <label for="correo">Correo: </label>
+  <input type="email" name="correo" id="correo" required="true"><br><br>
+  <label for="fecha">Fecha:</label>
+  <input type="date" name="fecha" id="fecha" required="true"><br><br>
+  <input type="submit" value="Agregar" onclick="agregarDatos()">
+  <input type="submit" value="Actualizar" onclick="actualizarDatos()">
+  <input type="button" value="Eliminar" onclick="eliminarDatos()">
+  <input type="button" value="Limpiar" onclick="limpiar()">
+</form>
+
+<div id="tablaDatos"></div><br>
+
+
+<div id="buscarCodigo">
+  <label for="buscarCodigo">Buscar Código:</label>
+  <input type="text" id="buscarCodigo">
+  <input type="button" value="Buscar" onclick="buscarCodigo()">
+  <div id="resultadoBusqueda"></div>
+</div><br>
+
+
+<div id="Excel">
+  <label for="cargarArchivo">Cargar Excel:</label>
+  <input type="file" id="cargarArchivo" accept=".xlsx">
+  <input type="button" value="Cargar Datos" onclick="cargarDatosDesdeExcel()">
+
+
+
+<input type="button" value="Exportar a Excel" onclick="exportToExcel()" id="exportButton">
+</div><br>
+<script>
+let datos = [];
+
+function agregarDatos() {
+  const codigo = document.getElementById("codigo").value;
+  const nombre = document.getElementById("nombre").value;
+  const apellido = document.getElementById("apellido").value;
+  const correo = document.getElementById("correo").value;
+  const fecha = document.getElementById("fecha").value;
+
+  if (codigo && nombre && apellido && correo && fecha) {
+    datos.push({ Código: codigo, Nombre: nombre, Apellido: apellido, Correo: correo, Fecha:fecha });
+    document.getElementById("codigo").value = "";
+    document.getElementById("nombre").value = "";
+    document.getElementById("apellido").value = "";
+    document.getElementById("correo").value="";
+    document.getElementById("fecha").value="";
+
+    mostrarDatos();
+  }
+  else{
+   
+  }
+}
+
+function limpiar()
+{
+document.getElementById("codigo").value="";
+document.getElementById("nombre").value="";
+document.getElementById("apellido").value="";
+document.getElementById("correo").value="";
+document.getElementById("fecha").value="";
+}
+
+function mostrarDatos() {
+  const tabla = document.getElementById("tablaDatos");
+  tabla.innerHTML = "";
+
+  if (datos.length > 0) {
+    const table = document.createElement("table");
+    const headerRow = table.insertRow(0);
+
+    for (const key in datos[0]) {
+      const th = document.createElement("th");
+      th.innerHTML = key;
+      headerRow.appendChild(th);
+    }
+
+    for (let i = 0; i < datos.length; i++) {
+      const row = table.insertRow(i + 1);
+      for (const key in datos[i]) {
+        const cell = row.insertCell();
+        cell.innerHTML = datos[i][key];
+      }
+    }
+
+    tabla.appendChild(table);
+    document.getElementById("exportButton").style.display = "block";
+  } else {
+    document.getElementById("exportButton").style.display = "none";
+  }
+}
+
+function buscarCodigo() {
+  const codigoBuscado = document.getElementById("buscarCodigo").value;
+  const resultadoBusqueda = document.getElementById("resultadoBusqueda");
+  resultadoBusqueda.innerHTML = "";
+
+  if (codigoBuscado) {
+    const resultados = datos.filter((item) => item["Código"] === codigoBuscado);
+
+    if (resultados.length > 0) {
+      const table = document.createElement("table");
+      const headerRow = table.insertRow(0);
+
+      for (const key in resultados[0]) {
+        const th = document.createElement("th");
+        th.innerHTML = key;
+        headerRow.appendChild(th);
+      }
+
+      resultados.forEach((item, index) => {
+        const row = table.insertRow(index + 1);
+        for (const key in item) {
+          const cell = row.insertCell();
+          cell.innerHTML = item[key];
+        }
+      });
+
+      resultadoBusqueda.appendChild(table);
+
+      // Mostrar los datos encontrados en las cajas de texto del formulario
+      document.getElementById("codigo").value = resultados[0]["Código"];
+      document.getElementById("nombre").value = resultados[0]["Nombre"];
+      document.getElementById("apellido").value = resultados[0]["Apellido"];
+      document.getElementById("correo").value = resultados[0]["Correo"];
+      document.getElementById("fecha").value= resultados[0]["Fecha"];
+    } else {
+      resultadoBusqueda.innerHTML = "Código no encontrado.";
+    }
+  }
+}
+
+function actualizarDatos() {
+  const codigo = document.getElementById("codigo").value;
+  const nombre = document.getElementById("nombre").value;
+  const apellido = document.getElementById("apellido").value;
+  const correo = document.getElementById("correo").value;
+  const fecha = document.getElementById("fecha").value;
+
+  if (codigo) {
+    const indice = datos.findIndex((item) => item["Código"] === codigo);
+
+    if (indice !== -1) {
+      datos[indice] = { Código: codigo, Nombre: nombre, Apellido: apellido, Correo: correo, Fecha: fecha };
+      mostrarDatos();
+      limpiarFormulario();
+    }
+  }
+}
+
+function eliminarDatos() {
+  const codigo = document.getElementById("codigo").value;
+
+  if (codigo) {
+    const indice = datos.findIndex((item) => item["Código"] === codigo);
+
+    if (indice !== -1) {
+      datos.splice(indice, 1);
+      mostrarDatos();
+      limpiarFormulario();
+    }
+  }
+}
+
+function limpiarFormulario() {
+  document.getElementById("codigo").value = "";
+  document.getElementById("nombre").value = "";
+  document.getElementById("apellido").value = "";
+  document.getElementById("correo").value= "";
+  document.getElementById("fecha").value=null;
+}
+
+function cargarDatosDesdeExcel() {
+  const fileInput = document.getElementById("cargarArchivo");
+  const file = fileInput.files[0];
+
+  if (file) {
+    const reader = new FileReader();
+
+    reader.onload = function (e) {
+      const data = new Uint8Array(e.target.result);
+      const workbook = XLSX.read(data, { type: "array" });
+      const worksheet = workbook.Sheets[workbook.SheetNames[0]];
+      const jsonData = XLSX.utils.sheet_to_json(worksheet);
+
+      datos = jsonData;
+      mostrarDatos();
+    };
+
+    reader.readAsArrayBuffer(file);
+  }
+}
+
+function exportToExcel() {
+  if (datos.length > 0) {
+    const worksheet = XLSX.utils.json_to_sheet(datos);
+    const workbook = XLSX.utils.book_new();
+    XLSX.utils.book_append_sheet(workbook, worksheet, "Datos");
+
+    XLSX.writeFile(workbook, "datos.xlsx");
+  }
+}
+</script>
+
+</body>
+
+<footer>
+  <p>Hecho por: Andres Felipe Gantiva</p>
+</footer>
+</html>

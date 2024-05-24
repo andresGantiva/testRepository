@@ -1,0 +1,107 @@
+*{
+    margin: 0%;
+    padding: 0%;
+}
+h2{
+    display:flex;
+    justify-content: center;
+    
+    
+}
+nav {
+
+padding-top: 20px;
+padding-bottom: 15px;
+display:flex;
+justify-content: center;
+
+}
+
+a{
+    color: #ffff;
+    text-decoration: none;
+    padding:5px;
+    margin: 6px;
+    background-color:#01401C;
+    border-color: #01401C;
+    border-style: solid;
+    border-radius: 15px;
+}
+
+a:hover{
+background:#6D8C75 ;
+border-color: #6D8C75;
+color:#ffff;
+transition-duration: 1s;
+}
+
+#contenedor_principal{
+    border-style: solid;
+    border-color: gray;
+    justify-content: center;
+    background-color:#025930;
+    color: #ffff;
+    font-family:poetsen one;
+    padding-top: 15px;
+    padding-left: 15px;
+}
+#formulario{
+    
+    justify-content: center;
+    text-align: center;
+   
+}
+
+#tablaDatos{
+    
+    display: flex;
+    border-style: solid;
+    justify-content: center;
+    text-align: center;
+    padding-top: 6px;
+}
+
+#buscarCodigo{
+    display: flex;
+    justify-content: center;
+    text-align: center;
+    padding-top: 6px;
+}
+
+#Excel{
+    justify-content: center;
+    text-align: center;   
+}
+
+footer{
+    margin-top: 17vh;
+}
+
+input[type=button], input[type=submit]{
+    margin: 8px;
+    padding:6px;
+     color: #ffff;
+    background-color:#01401C;
+    border-color: #01401C;
+    border-style: solid;
+    border-radius: 15px;
+    cursor: pointer;
+}
+input[type=text],input[type=email],input[type=date]{
+    margin-left: 3px;
+    padding:5px;
+    color: #ffff;
+    
+    background-color:#01401C;
+    border-color: #01401C;
+    border-style: solid;
+    border-radius: 15px;
+}
+
+input[type=button] :hover{
+    
+background:#6D8C75 ;
+border-color: #6D8C75;
+color:#ffff;
+transition-duration: 1s;
+}
